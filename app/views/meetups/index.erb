@@ -1,0 +1,15 @@
+<h1>Meetups</h1>
+
+<% if @meetups %>
+  <% @meetups.each do |meetup| %>
+  <p><li><a href="/meetups/<%= meetup.id %>"><%= meetup.name %></a></li>
+  <li><%= meetup.location %></li>
+  <li><%= meetup.description %></li></p>
+  <% end %>
+<% end %>
+
+<% if @error %>
+  <p> <%= @error %> </p>
+<% else %>
+  <a href="/meetups/new">Create Meetup</a>
+<% end %>
