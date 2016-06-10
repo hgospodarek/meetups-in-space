@@ -31,21 +31,24 @@ get '/sign_out' do
 end
 
 get '/meetups' do
-  if current_user.nil?
-    @error = "Please sign in to create new meetup."
-  end
   @meetups = Meetup.all.order(name: :asc)
   erb :'meetups/index'
 end
 
+post '/meetups' do
+  if current_user.nil?
+    flash[:notice] = "You cannot create a meetup without signing in."
+    redirect "/meetups"
+  else
+    redirect "/meetups/new"
+  end
+end
 
 get '/meetups/new' do
   erb :'meetups/new'
 end
 
 post '/meetups/new' do
-  @signed_in_user = current_user
-
   @name = params[:name]
   @location = params[:location]
   @description = params[:description]
@@ -56,11 +59,11 @@ post '/meetups/new' do
     erb :'meetups/new'
   else
     meetup.save
-    UserMeetup.create(user: @signed_in_user, meetup: meetup, creator: true)
+    UserMeetup.create(user: current_user, meetup: meetup, creator: true)
+    flash[:notice] = "Meetup created successfully!"
     redirect "/meetups/#{meetup.id}"
   end
 end
-
 
 get '/meetups/:id' do
   @signed_in_user = current_user
@@ -69,19 +72,15 @@ get '/meetups/:id' do
   erb :'meetups/show'
 end
 
-
 post '/meetups/:id' do
-  # @joining_member = params[:joining_member]
-  # @meetup = params[:meetup]
-  # binding.pry
-  # if @joining_member.empty?
-  
   @id = params[:id]
-  @meetup = Meetup.find(@id)
+  meetup = Meetup.find(@id)
   if current_user.nil?
     flash[:notice] = "You cannot join a meetup until you sign in."
     redirect "/meetups/#{@id}"
   else
-    UserMeetup.create(user: @joining_member, meetup: @meetup)
+    UserMeetup.create(user: current_user, meetup: meetup)
+    flash[:notice] = "You joined this meetup!"
+    redirect "/meetups/#{meetup.id}"
   end
 end

@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20160607183316) do
   end
 
   create_table "user_meetups", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "meetup_id"
+    t.integer "user_id",                   null: false
+    t.integer "meetup_id",                 null: false
     t.boolean "creator",   default: false, null: false
   end
 

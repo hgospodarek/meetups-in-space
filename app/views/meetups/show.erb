@@ -1,24 +1,22 @@
 <h1> <%= @meetup.name %> </h1>
+
 <% if @signed_in_user && @signed_in_user.username == @meetup.creator.username %>
-  <h2>You created this Meetup!</h2>
+  <h3>You created this Meetup!</h3>
 <% else %>
-  <h2> <%= @meetup.creator.username %> </h2>
+  <h3>Organizer: <img src="<%= @meetup.creator.avatar_url %>" alt="<%= @meetup.creator.avatar_url %>"/> <%= @meetup.creator.username %> </h3>
 <% end %>
 
-<li><%= @meetup.location %></li>
-<li><%= @meetup.description %></li>
+<li>Location: <%= @meetup.location %></li>
+<li>Description: <%= @meetup.description %></li>
 
 <% if @signed_in_user.nil? || (@signed_in_user && !@meetup.users.include?(@signed_in_user)) %>
 
-<!-- Make this a single button  -->
 <form action="/meetups/<%=@meetup.id%>" method="post">
-  <% binding.pry %>
-  <input type="text" name="meetup" value="<% @meetup %>" hidden=true>
-  <input type="text" name="joining_member" value="<% @signed_in_user %>"hidden=true>
   <input type="submit" name="Join Meetup" id="Join Meetup" value="Join Meetup">
 </form>
 <% end %>
 
+<h3>Attendees List:</h3>
 <% @meetup.attendees.each do |attendee|%>
-<img src="<%= attendee.avatar_url %>" alt="<%= attendee.avatar_url %>" /> <li><%= attendee.username %></li>
+  <img src="<%= attendee.avatar_url %>" alt="<%= attendee.avatar_url %>" /> <li><%= attendee.username %></li>
 <% end %>

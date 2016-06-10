@@ -5,8 +5,6 @@ require 'capybara/poltergeist'
 require 'factory_girl'
 require_relative 'support/factory_girl'
 require 'launchy'
-require 'valid_attribute'
-require 'shoulda'
 
 require_relative '../app.rb'
 Dir[__dir__ + '/support/*.rb'].each { |file| require_relative file }
@@ -21,3 +19,6 @@ RSpec.configure do |config|
   OmniAuth.config.test_mode = true
   config.include AuthenticationHelper
 end
+
+require 'valid_attribute'
+require 'shoulda-matchers'

@@ -13,12 +13,18 @@ FactoryGirl.define do
     name "Super Cool Meetup"
     description "A super wicked cool meetup in outer space"
     location "Saturn"
+
+    # creator
+
   end
 
   factory :user_meetup do
     user
     meetup
-    creator false
+
+    factory :creator do
+      creator true
+    end
   end
 
 end

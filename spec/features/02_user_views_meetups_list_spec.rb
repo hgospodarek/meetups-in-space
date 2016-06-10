@@ -4,7 +4,6 @@ feature 'user views list of meetups' do
 
   scenario 'view list of meetups' do
     meetup_list = FactoryGirl.create_list(:meetup, 12)
-    meetup_list << FactoryGirl.create(:meetup, name: 'A Meetup Starting with A')
 
     visit '/meetups'
 
@@ -24,9 +23,5 @@ feature 'user views list of meetups' do
     first_meetup_postion = page.body.index('A Meetup Starting with A')
     other_meetup_position = page.body.index('Super Cool Meetup')
     expect(first_meetup_postion).to be < other_meetup_position
-  end
-
-  scenario 'there is a link to create a new meetup' do
-
   end
 end

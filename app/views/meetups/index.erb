@@ -2,14 +2,18 @@
 
 <% if @meetups %>
   <% @meetups.each do |meetup| %>
-  <p><li><a href="/meetups/<%= meetup.id %>"><%= meetup.name %></a></li>
-  <li><%= meetup.location %></li>
-  <li><%= meetup.description %></li></p>
+    <div class="meetup-container">
+      <p><h4><a href="/meetups/<%= meetup.id %>"><%= meetup.name %></a></h5>
+        <ul>
+          <li><%= meetup.location %></li>
+          <li><%= meetup.description %></li></p>
+        </ul>
+    </div>
   <% end %>
+<% else %>
+  <h3>There are currently no meetups at all! Maybe you should make one!</h3>
 <% end %>
 
-<% if @error %>
-  <p> <%= @error %> </p>
-<% else %>
-  <a href="/meetups/new">Create Meetup</a>
-<% end %>
+<form action="/meetups" method="post">
+  <input type="submit" name="Create Meetup" value="Create Meetup">
+</form>

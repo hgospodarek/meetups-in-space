@@ -10,6 +10,43 @@ a:visited {
   text-decoration: none;
 }
 
+a:hover {
+  color: #3B9089;
+}
+
+li {
+  list-style: none;
+}
+
+form li {
+  margin: 1em 0;
+}
+
+input {
+  color: black;
+}
+
+label {
+  display: block;
+}
+
+img {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+.error {
+  display: block;
+  background-color: #3B9089;
+  padding: 1em;
+
+}
+
+.meetup-container {
+  margin: 3em 1em;
+}
+
 .container {
   max-width: 1024px;
   margin: 0 auto;
